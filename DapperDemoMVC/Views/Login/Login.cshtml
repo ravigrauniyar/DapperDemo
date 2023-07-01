@@ -1,0 +1,41 @@
+﻿@model DapperDemoMVC.Models.LoginCredentialsModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<h4>Enter valid Credentials</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login" asp-controller="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="username" class="control-label mb-3">Username</label>
+                <input asp-for="username" class="form-control" />
+                <span asp-validation-for="username" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="password" class="control-label mb-3">Password</label>
+                <input type="pass" asp-for="password" class="form-control" />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sign In" class="btn btn-primary" />
+            </div>
+            <div id="errorDiv" class="form-group mt-3">
+                @if (TempData.ContainsKey("LoginError"))
+                {
+                    <span class="text-danger">@TempData.Peek("LoginError")</span>
+                    TempData.Remove("LoginError");
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
